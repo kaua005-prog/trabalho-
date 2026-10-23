@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>História do Blox Fruits</title>
+
+<style>
+
+/* --- RESET --- */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#ffffff;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+/* --- FUNDO ANIMADO --- */
+
+body::before{
+    content:'';
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle,#facc1520 10%, transparent 10%),
+    radial-gradient(circle,#38bdf820 10%, transparent 10%);
+    background-size:120px 120px;
+    animation:fundo 20s linear infinite;
+    z-index:-1;
+}
+
+@keyframes fundo{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-120px);
+    }
+}
+
+/* --- MENU SUPERIOR --- */
+
+.menu{
+    width:100%;
+    height:80px;
+    position:fixed;
+    top:0;
+    left:0;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    box-shadow:0 2px 15px rgba(0,0,0,0.1);
+    z-index:1000;
+}
+
+/* LOGO */
+
+.logo{
+    color:#f59e0b;
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* BOTÃO MENU */
+
+.menu-btn{
+    font-size:35px;
+    cursor:pointer;
+    color:#111827;
+    transition: 0.3s ease;
+}
+
+.menu-btn:hover{
+    color:#f59e0b;
+    transform: scale(1.1);
+}
+
+/* --- MENU LATERAL --- */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-280px;
+    width:280px;
+    height:100vh;
+    background:#111827;
+    padding:30px 20px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+    z-index:2000;
+    overflow-y:auto;
+}
+
+.sidebar.ativo{
+    transform: translateX(280px);
+}
+
+/* FECHAR */
+
+.fechar{
+    font-size:35px;
+    color:white;
+    cursor:pointer;
+    margin-bottom:30px;
+    display:inline-block;
+    transition: 0.3s;
+}
+
+.fechar:hover{
+    transform: rotate(90deg);
+    color: #f59e0b;
+}
+
+/* LINKS DO MENU */
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:10px;
+    transition: 0.3s ease;
+    font-size:18px;
+}
+
+.sidebar a:hover{
+    background:#f59e0b;
+    transform:translateX(8px);
+}
+
+/* --- CONTEÚDO PRINCIPAL --- */
+
+.historia{
+    padding:130px 20px 80px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+/* TÍTULO PRINCIPAL (Animação de Entrada Direta) */
+
+.titulo{
+    text-align:center;
+    font-size:55px;
+    color:#f59e0b;
+    margin-bottom:40px;
+    animation: tituloEntrada 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes tituloEntrada{
+    from{
+        opacity:0;
+        transform:translateY(-60px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TEXTOS INSTITUCIONAIS */
+
+.texto{
+    background:white;
+    padding:25px;
+    border-left:6px solid #f59e0b;
+    border-radius:15px;
+    margin-bottom:25px;
+    line-height:1.9;
+    font-size:19px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
+    /* Configuração de Scroll Inicial */
+    opacity:0;
+    transform:translateY(40px);
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+/* --- SEÇÃO DE CARDS --- */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+    margin-top:50px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
+    /* Configuração de Scroll Inicial */
+    opacity:0;
+    transform:translateY(50px);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito Hover nos Cards (Surgem apenas após estarem visíveis na tela) */
+.card.mostrar:hover{
+    transform: translateY(-12px) scale(1.03) !important;
+    background: #fff7ed;
+    box-shadow: 0 15px 30px rgba(245, 158, 11, 0.15);
+}
+
+.card h2{
+    color:#f59e0b;
+    margin-bottom:15px;
+    font-size:28px;
+}
+
+.card p{
+    line-height:1.8;
+    color:#374151;
+}
+
+/* --- SEÇÃO TIMELINE (EFEITO ALTERNADO) --- */
+
+.timeline{
+    margin-top:60px;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+.time{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    opacity:0;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease, box-shadow 0.3s ease;
+}
+
+/* Anos Ímpares: Entram pela Esquerda (Borda Azul) */
+.time:nth-child(odd) {
+    border-left: 6px solid #38bdf8;
+    transform: translateX(-70px);
+}
+.time:nth-child(odd) span {
+    color: #38bdf8;
+}
+
+/* Anos Pares: Entram pela Direita (Borda Laranja e Texto Alinhado) */
+.time:nth-child(even) {
+    border-right: 6px solid #f59e0b;
+    text-align: right;
+    transform: translateX(70px);
+}
+.time:nth-child(even) span {
+    color: #f59e0b;
+}
+
+.time span{
+    font-size:28px;
+    font-weight:bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Hover na Linha do Tempo */
+.time.mostrar:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* --- CLASSE GLOBAL GATILHO DE ANIMAÇÃO (JS) --- */
+
+.animar.mostrar {
+    opacity: 1 !important;
+    transform: translate(0) !important;
+}
+
+/* --- RESPONSIVIDADE --- */
+
+@media(max-width:768px){
+    .titulo{
+        font-size:38px;
+    }
+    .texto{
+        font-size:16px;
+    }
+    .logo{
+        font-size:22px;
+    }
+    /* Neutraliza alinhamento na timeline para telas pequenas */
+    .time:nth-child(even) {
+        text-align: left;
+        border-right: none;
+        border-left: 6px solid #f59e0b;
+    }
+}
+
+
+/* === POLIMENTO VISUAL E ANIMAÇÕES EXTRAS === */
+html { scroll-behavior: smooth; }
+body { isolation: isolate; }
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(ellipse at 15% 15%, rgba(250,204,21,.08), transparent 38%),
+                radial-gradient(ellipse at 85% 80%, rgba(56,189,248,.06), transparent 35%);
+    animation: brilhoAmbiente 9s ease-in-out infinite alternate;
+}
+@keyframes brilhoAmbiente {
+    from { opacity: .45; }
+    to { opacity: 1; }
+}
+.logo { transition: transform .35s ease, filter .35s ease; }
+.logo:hover { transform: translateY(-2px) scale(1.04); filter: drop-shadow(0 0 10px rgba(250,204,21,.65)); }
+.menu-btn, .fechar { user-select: none; }
+.menu-btn:focus-visible, .fechar:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 3px solid #facc15; outline-offset: 4px;
+}
+.sidebar a { position: relative; }
+.sidebar a::after {
+    content: ""; position: absolute; left: 15px; right: 15px; bottom: 7px;
+    height: 2px; background: currentColor; transform: scaleX(0);
+    transform-origin: left; transition: transform .3s ease;
+}
+.sidebar a:hover::after { transform: scaleX(1); }
+h1 { animation: tituloBrilho 3.5s ease-in-out infinite alternate; }
+@keyframes tituloBrilho {
+    from { text-shadow: 0 0 8px rgba(250,204,21,.35); }
+    to { text-shadow: 0 0 24px rgba(250,204,21,.75); }
+}
+.card, .texto, .time, .info {
+    will-change: transform;
+}
+.card:hover, .texto:hover, .time:hover, .info:hover {
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+button, .botao { position: relative; overflow: hidden; }
+button::after, .botao::after {
+    content: ""; position: absolute; inset: 0; left: -120%; width: 70%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg); transition: left .65s ease;
+}
+button:hover::after, .botao:hover::after { left: 150%; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+
+.revelar-scroll { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
+.revelar-scroll.revelado { opacity: 1; transform: translateY(0); }
+
+</style>
+</head>
+<body>
+
+<header class="menu">
+    <div class="logo">
+        🍎 BLOX FRUITS
+    </div>
+    <div class="menu-btn" onclick="abrirMenu()">
+        ☰
+    </div>
+</header>
+
+<div class="sidebar" id="sidebar">
+    <span class="fechar" onclick="fecharMenu()">
+        ✖
+    </span>
+    <a href="sobre3.html">🍎 Frutas</a>
+    <a href="sobre5.html">👤 Raças</a>
+    <a href="sobre9.html">⚔️ Espadas</a>
+    <a href="sobre4.html">🔫 Armas</a>
+    <a href="sobre6.html">🥋 Estilo de Luta</a>
+    <a href="sobre7.html">✨ Reworks</a>
+    <a href="sobre8.html">📄 Formulário</a>
+</div>
+
+<section class="historia">
+<div class="container">
+
+    <h1 class="titulo">
+        🍎 A História do Blox Fruits 🍎
+    </h1>
+
+    <p class="texto animar">
+        O Blox Fruits é um dos jogos mais famosos do Roblox.
+        Inspirado diretamente no anime One Piece, o jogo permite
+        que jogadores explorem oceanos gigantescos, encontrem frutas
+        poderosas e se tornem piratas lendários.
+    </p>
+
+    <p class="texto animar">
+        O jogo foi criado pela equipe Gamer Robot Inc. e lançado
+        originalmente em 2019 com o nome Blox Piece.
+        Depois do enorme sucesso mundial, o nome foi alterado
+        oficialmente para Blox Fruits.
+    </p>
+
+    <p class="texto animar">
+        Os jogadores podem usar frutas especiais inspiradas
+        nas Akuma no Mi de One Piece, além de espadas,
+        armas de fogo e estilos de luta únicos.
+    </p>
+
+    <div class="cards">
+        <div class="card animar">
+            <h2>⚔️ Batalhas</h2>
+            <p>Lute contra inimigos poderosos, bosses e outros jogadores em batalhas incríveis.</p>
+        </div>
+
+        <div class="card animar">
+            <h2>🍎 Frutas</h2>
+            <p>As frutas especiais concedem poderes únicos como fogo, luz, magma, gelo e transformação em dragão.</p>
+        </div>
+
+        <div class="card animar">
+            <h2>🌊 Exploração</h2>
+            <p>Explore ilhas secretas, mares gigantescos e descubra novos desafios escondidos pelo mapa.</p>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="time animar">
+            <span>2019</span>
+            <p>Lançamento oficial do Blox Piece.</p>
+        </div>
+
+        <div class="time animar">
+            <span>2020</span>
+            <p>O jogo cresce rapidamente dentro do Roblox.</p>
+        </div>
+
+        <div class="time animar">
+            <span>2021</span>
+            <p>O nome muda oficialmente para Blox Fruits.</p>
+        </div>
+
+        <div class="time animar">
+            <span>2022 - 2026</span>
+            <p>Grandes atualizações adicionam novas frutas, ilhas e eventos.</p>
+        </div>
+    </div>
+
+</div>
+</section>
+
+<script>
+
+/* CONTROLE DO MENU LATERAL */
+function abrirMenu(){
+    document.getElementById("sidebar").classList.add("ativo");
+}
+
+function fecharMenu(){
+    document.getElementById("sidebar").classList.remove("ativo");
+}
+
+/* ENGINE DE ANIMAÇÃO VIA SCROLL */
+const elementosParaAnimar = document.querySelectorAll('.animar');
+
+function dispararAnimacaoScroll() {
+    elementosParaAnimar.forEach(item => {
+        const topoElemento = item.getBoundingClientRect().top;
+        // Ativa o elemento um pouco antes dele chegar na metade da tela de visão
+        if(topoElemento < window.innerHeight - 80){
+            item.classList.add('mostrar');
+        }
+    });
+}
+
+// Ouvintes de eventos para acionar as animações
+window.addEventListener('scroll', dispararAnimacaoScroll);
+window.addEventListener('DOMContentLoaded', dispararAnimacaoScroll);
+
+</script>
+
+<script>
+
+/* === INTERAÇÕES E ANIMAÇÕES AO ROLAR A PÁGINA === */
+(function () {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const abrir = () => {
+        if (sidebar) sidebar.classList.add('ativo');
+        if (overlay) overlay.classList.add('ativo');
+        document.body.classList.add('menu-aberto');
+    };
+    const fechar = () => {
+        if (sidebar) sidebar.classList.remove('ativo');
+        if (overlay) overlay.classList.remove('ativo');
+        document.body.classList.remove('menu-aberto');
+    };
+    window.abrirMenu = abrir;
+    window.fecharMenu = fechar;
+    if (overlay) overlay.addEventListener('click', fechar);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') fechar(); });
+
+    const seletores = 'main h2, .conteudo > h1, .conteudo > .info, .container .card, .cards .card, .timeline .time, .texto';
+    const itens = document.querySelectorAll(seletores);
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        itens.forEach(el => el.classList.add('revelar-scroll'));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revelado');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+        itens.forEach(el => observer.observe(el));
+    }
+})();
+
+</script>
+</body>
+</html>

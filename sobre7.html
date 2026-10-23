@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reworks - Blox Fruits</title>
+
+<style>
+
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0d1117,#111827,#1e293b);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* FUNDO ANIMADO */
+
+body::before{
+    content:"";
+
+    position:fixed;
+
+    width:200%;
+    height:200%;
+
+    background:
+    radial-gradient(circle,gold 1px,transparent 1px);
+
+    background-size:50px 50px;
+
+    opacity:0.05;
+
+    animation:fundo 30s linear infinite;
+
+    z-index:-1;
+}
+
+@keyframes fundo{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* MENU SUPERIOR */
+
+.topo{
+    width:100%;
+    height:80px;
+
+    background:#111827;
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 25px;
+
+    z-index:1000;
+
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.logo{
+    color:gold;
+
+    font-size:28px;
+    font-weight:bold;
+
+    text-shadow:0 0 15px gold;
+
+    animation:logo 2s infinite alternate;
+}
+
+@keyframes logo{
+
+    from{
+        text-shadow:0 0 10px gold;
+    }
+
+    to{
+        text-shadow:0 0 25px orange;
+    }
+
+}
+
+/* BOTÃO MENU */
+
+.menu-btn{
+    font-size:35px;
+    cursor:pointer;
+
+    transition:0.4s;
+}
+
+.menu-btn:hover{
+    color:gold;
+    transform:rotate(90deg);
+}
+
+/* OVERLAY */
+
+.overlay{
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:rgba(0,0,0,0.6);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:0.5s;
+
+    z-index:1500;
+}
+
+.overlay.ativo{
+    opacity:1;
+    visibility:visible;
+}
+
+/* MENU LATERAL */
+
+.sidebar{
+    position:fixed;
+
+    top:0;
+    left:-320px;
+
+    width:300px;
+    height:100vh;
+
+    background:#111827;
+
+    padding:25px;
+
+    transition:0.5s;
+
+    z-index:2000;
+
+    overflow-y:auto;
+
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+.sidebar.ativo{
+    left:0;
+}
+
+/* FECHAR */
+
+.fechar{
+    font-size:32px;
+
+    cursor:pointer;
+
+    display:block;
+
+    margin-bottom:25px;
+
+    transition:0.4s;
+}
+
+.fechar:hover{
+    color:red;
+    transform:rotate(180deg);
+}
+
+/* LINKS */
+
+.sidebar a{
+    display:block;
+
+    text-decoration:none;
+    color:white;
+
+    background:#1e293b;
+
+    margin-bottom:12px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    transition:0.4s;
+
+    font-size:18px;
+}
+
+.sidebar a:hover{
+    background:gold;
+    color:black;
+
+    transform:translateX(10px);
+
+    box-shadow:0 0 20px gold;
+}
+
+/* CONTEÚDO */
+
+.conteudo{
+    padding:120px 20px 40px;
+}
+
+/* TITULO */
+
+h1{
+    text-align:center;
+
+    color:gold;
+
+    margin-bottom:40px;
+
+    font-size:45px;
+
+    text-shadow:0 0 20px gold;
+
+    animation:titulo 2s ease;
+}
+
+@keyframes titulo{
+
+    from{
+        opacity:0;
+        transform:translateY(-70px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* GRID */
+
+.container{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+}
+
+/* CARDS */
+
+.card{
+    background:#161b22;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    border:2px solid transparent;
+
+    transition:0.5s;
+
+    position:relative;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    animation:subir 1s ease forwards;
+}
+
+/* DELAYS */
+
+.card:nth-child(1){animation-delay:0.1s;}
+.card:nth-child(2){animation-delay:0.2s;}
+.card:nth-child(3){animation-delay:0.3s;}
+.card:nth-child(4){animation-delay:0.4s;}
+.card:nth-child(5){animation-delay:0.5s;}
+.card:nth-child(6){animation-delay:0.6s;}
+.card:nth-child(7){animation-delay:0.7s;}
+.card:nth-child(8){animation-delay:0.8s;}
+.card:nth-child(9){animation-delay:0.9s;}
+.card:nth-child(10){animation-delay:1s;}
+.card:nth-child(11){animation-delay:1.1s;}
+.card:nth-child(12){animation-delay:1.2s;}
+
+/* BRILHO */
+
+.card::before{
+    content:"";
+
+    position:absolute;
+
+    top:-100%;
+    left:-100%;
+
+    width:200%;
+    height:200%;
+
+    background:
+    linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
+    );
+
+    transform:rotate(25deg);
+
+    transition:1s;
+}
+
+.card:hover::before{
+    top:100%;
+    left:100%;
+}
+
+/* HOVER */
+
+.card:hover{
+    transform:translateY(-10px) scale(1.03);
+
+    border-color:gold;
+
+    box-shadow:0 0 25px rgba(255,215,0,0.4);
+}
+
+/* TITULOS */
+
+.card h2{
+    color:gold;
+
+    margin-bottom:15px;
+
+    font-size:28px;
+}
+
+/* TEXTOS */
+
+.card p{
+    margin-bottom:12px;
+
+    line-height:1.7;
+}
+
+/* TIPOS */
+
+.logia{
+    color:#00d9ff;
+    font-weight:bold;
+}
+
+.paramecia{
+    color:#ff9800;
+    font-weight:bold;
+}
+
+.zoan{
+    color:#ff4d4d;
+    font-weight:bold;
+}
+
+/* BOTÃO */
+
+.center{
+    text-align:center;
+}
+
+.btn{
+    display:inline-block;
+
+    margin-top:45px;
+
+    padding:15px 35px;
+
+    background:linear-gradient(45deg,gold,orange);
+
+    color:black;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    transition:0.4s;
+
+    animation:pulsar 2s infinite;
+}
+
+.btn:hover{
+    transform:scale(1.08);
+
+    box-shadow:0 0 25px gold;
+}
+
+@keyframes pulsar{
+
+    0%{
+        box-shadow:0 0 10px gold;
+    }
+
+    50%{
+        box-shadow:0 0 25px orange;
+    }
+
+    100%{
+        box-shadow:0 0 10px gold;
+    }
+
+}
+
+@keyframes subir{
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    h1{
+        font-size:32px;
+    }
+
+    .card h2{
+        font-size:24px;
+    }
+
+    .card p{
+        font-size:15px;
+    }
+
+    .sidebar{
+        width:260px;
+    }
+
+}
+
+
+/* === POLIMENTO VISUAL E ANIMAÇÕES EXTRAS === */
+html { scroll-behavior: smooth; }
+body { isolation: isolate; }
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(ellipse at 15% 15%, rgba(250,204,21,.08), transparent 38%),
+                radial-gradient(ellipse at 85% 80%, rgba(56,189,248,.06), transparent 35%);
+    animation: brilhoAmbiente 9s ease-in-out infinite alternate;
+}
+@keyframes brilhoAmbiente {
+    from { opacity: .45; }
+    to { opacity: 1; }
+}
+.logo { transition: transform .35s ease, filter .35s ease; }
+.logo:hover { transform: translateY(-2px) scale(1.04); filter: drop-shadow(0 0 10px rgba(250,204,21,.65)); }
+.menu-btn, .fechar { user-select: none; }
+.menu-btn:focus-visible, .fechar:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 3px solid #facc15; outline-offset: 4px;
+}
+.sidebar a { position: relative; }
+.sidebar a::after {
+    content: ""; position: absolute; left: 15px; right: 15px; bottom: 7px;
+    height: 2px; background: currentColor; transform: scaleX(0);
+    transform-origin: left; transition: transform .3s ease;
+}
+.sidebar a:hover::after { transform: scaleX(1); }
+h1 { animation: tituloBrilho 3.5s ease-in-out infinite alternate; }
+@keyframes tituloBrilho {
+    from { text-shadow: 0 0 8px rgba(250,204,21,.35); }
+    to { text-shadow: 0 0 24px rgba(250,204,21,.75); }
+}
+.card, .texto, .time, .info {
+    will-change: transform;
+}
+.card:hover, .texto:hover, .time:hover, .info:hover {
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+button, .botao { position: relative; overflow: hidden; }
+button::after, .botao::after {
+    content: ""; position: absolute; inset: 0; left: -120%; width: 70%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg); transition: left .65s ease;
+}
+button:hover::after, .botao:hover::after { left: 150%; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+
+.revelar-scroll { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1); }
+.revelar-scroll.revelado { opacity: 1; transform: translateY(0); }
+
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+
+<header class="topo">
+
+<div class="logo">
+✨ BLOX FRUITS
+</div>
+
+<div class="menu-btn" onclick="abrirMenu()">
+☰
+</div>
+
+</header>
+
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="fecharMenu()"></div>
+
+<!-- MENU LATERAL -->
+
+<div class="sidebar" id="sidebar">
+
+<span class="fechar" onclick="fecharMenu()">
+✖
+</span>
+
+  <a href="sobre3.html">🍎 Frutas</a>
+    <a href="sobre5.html">👤 Raças</a>
+    <a href="sobre9.html">⚔️ Espadas</a>
+    <a href="sobre4.html">🔫 Armas</a>
+    <a href="sobre6.html">🥋 Estilo de Luta</a>
+    <a href="sobre7.html">✨ Reworks</a>
+    <a href="sobre8.html">📄 Formulário</a>
+</div>
+
+<!-- CONTEÚDO -->
+
+<div class="conteudo">
+
+<h1>✨ Frutas com Rework ✨</h1>
+
+<div class="container">
+
+<div class="card">
+<h2>Dragon</h2>
+<p class="zoan">Tipo: Zoan Mítica</p>
+<p>Recebeu um dos maiores reworks do jogo.</p>
+<p>Novos ataques devastadores e transformação melhorada.</p>
+<p>Hoje é uma das frutas mais fortes.</p>
+</div>
+
+<div class="card">
+<h2>Control</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Habilidades modernizadas.</p>
+<p>Ataques mais rápidos e melhor alcance.</p>
+<p>Muito forte no PvP.</p>
+</div>
+
+<div class="card">
+<h2>Love</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Recebeu voo melhorado.</p>
+<p>Novos efeitos visuais incríveis.</p>
+<p>Virou uma fruta muito usada.</p>
+</div>
+
+<div class="card">
+<h2>Barrier</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Barreiras maiores e resistentes.</p>
+<p>Melhores animações.</p>
+<p>Ótima defesa em batalhas.</p>
+</div>
+
+<div class="card">
+<h2>Rubber</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Inspirada em Gear 5.</p>
+<p>Mais combos e mobilidade.</p>
+<p>Ataques extremamente rápidos.</p>
+</div>
+
+<div class="card">
+<h2>Phoenix</h2>
+<p class="zoan">Tipo: Zoan</p>
+<p>Despertar muito melhorado.</p>
+<p>Mais cura e voo poderoso.</p>
+<p>Excelente fruta suporte.</p>
+</div>
+
+<div class="card">
+<h2>Dough</h2>
+<p class="paramecia">Tipo: Paramecia Mítica</p>
+<p>Despertar quase virou um rework.</p>
+<p>Combos absurdamente fortes.</p>
+<p>Uma das melhores do PvP.</p>
+</div>
+
+<div class="card">
+<h2>Falcon</h2>
+<p class="zoan">Tipo: Zoan</p>
+<p>Voo melhorado.</p>
+<p>Novas animações rápidas.</p>
+<p>Mais divertida de usar.</p>
+</div>
+
+<div class="card">
+<h2>Bomb</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Efeitos explosivos atualizados.</p>
+<p>Mais dano e impacto visual.</p>
+<p>Melhor desempenho em combate.</p>
+</div>
+
+<div class="card">
+<h2>Portal</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Substituiu Door Fruit.</p>
+<p>Novos teletransportes.</p>
+<p>Uma das melhores para movimentação.</p>
+</div>
+
+<div class="card">
+<h2>Blizzard</h2>
+<p class="logia">Tipo: Logia</p>
+<p>Poderes modernos de neve.</p>
+<p>Muito controle de área.</p>
+<p>Excelente no PvP e farm.</p>
+</div>
+
+<div class="card">
+<h2>Spin</h2>
+<p class="paramecia">Tipo: Paramecia</p>
+<p>Mobilidade aérea melhorada.</p>
+<p>Novos movimentos rápidos.</p>
+<p>Rework deixou a fruta moderna.</p>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+<script>
+
+function abrirMenu(){
+
+    document.getElementById("sidebar")
+    .classList.add("ativo");
+
+    document.getElementById("overlay")
+    .classList.add("ativo");
+
+}
+
+function fecharMenu(){
+
+    document.getElementById("sidebar")
+    .classList.remove("ativo");
+
+    document.getElementById("overlay")
+    .classList.remove("ativo");
+
+}
+
+</script>
+
+<script>
+
+/* === INTERAÇÕES E ANIMAÇÕES AO ROLAR A PÁGINA === */
+(function () {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const abrir = () => {
+        if (sidebar) sidebar.classList.add('ativo');
+        if (overlay) overlay.classList.add('ativo');
+        document.body.classList.add('menu-aberto');
+    };
+    const fechar = () => {
+        if (sidebar) sidebar.classList.remove('ativo');
+        if (overlay) overlay.classList.remove('ativo');
+        document.body.classList.remove('menu-aberto');
+    };
+    window.abrirMenu = abrir;
+    window.fecharMenu = fechar;
+    if (overlay) overlay.addEventListener('click', fechar);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') fechar(); });
+
+    const seletores = 'main h2, .conteudo > h1, .conteudo > .info, .container .card, .cards .card, .timeline .time, .texto';
+    const itens = document.querySelectorAll(seletores);
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        itens.forEach(el => el.classList.add('revelar-scroll'));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revelado');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+        itens.forEach(el => observer.observe(el));
+    }
+})();
+
+</script>
+</body>
+</html>
